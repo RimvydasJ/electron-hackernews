@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+
+import {Container} from './styles'
 import { HackerNewsItem } from '../../models/HackerNewsItem'
 import Api from '../../infrastructure/Api'
 import NewsItem from '../NewsItem'
@@ -18,13 +20,13 @@ const NewsList: React.FC = () => {
 
 
     return (
-        <div>
+        <Container>
             {
                 newsPosts.map((item: HackerNewsItem) => (
-                    <NewsItem title={item.title} description={item.description} />)
+                    <NewsItem item={item}/>)
                 )
             }
-        </div>
+        </Container>
     )
 }
 

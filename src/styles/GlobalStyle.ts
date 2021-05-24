@@ -16,6 +16,9 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const Container = styled.div`
-  margin: 2%;
+  display:fex;
+  flex-direction:row;
+  height:100vh;
+  overflow-y:hidden;
 `
 

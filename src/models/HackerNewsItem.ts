@@ -1,4 +1,7 @@
 export interface HackerNewsItem {
     title: string;
-    description: string;
+    url: string;
+    score: number;
+    date:Date;
+    commentCount: number;
 }

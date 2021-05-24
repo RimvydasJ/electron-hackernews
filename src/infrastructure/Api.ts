@@ -7,11 +7,17 @@ export async function get_top_storie(): Promise<HackerNewsItem[]> {
     try {
         var response = await Axios.get(url + "topstories.json");
         if (response.data) {
-            for(var i=0; i < 20; i++){
+            for(var i=0; i < 10; i++){
                 var newsItem = await Axios.get(url + `/item/${response.data[i]}.json`);
                 if (newsItem.data) {
-                    console.log(newsItem.data)
-                    newsStories.push({title: newsItem.data.title, description:newsItem.data.url});
+                    newsStories.push(
+                        {
+                            title: newsItem.data.title, 
+                            url:newsItem.data.url, 
+                            date:new Date(newsItem.data.time*1000), 
+                            score:newsItem.data.score,
+                            commentCount: newsItem.data.kids.length
+                        });
                 }
             }
         }
