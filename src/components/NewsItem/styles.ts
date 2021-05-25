@@ -6,47 +6,53 @@ export const Container = styled.div`
     background-color: #dedede;
     border-radius: 5px;
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     padding: 5px;
 `
 
-export const Header = styled.div `
+export const LeftContainer = styled.a`
+    width:91%;
     display:flex;
-    flex-direction:row;
-    justify-content:space-between;
-    margin-bottom: 10px;
+    flex-direction:column;
+    cursor:pointer;
+`
+export const RightContainer = styled.div`
+    width:9%;
+    display:flex;
+    flex-direction:column;
 `
 
-export const HeaderScoreDate = styled.div `
+export const HeaderScoreDate = styled.div`
     display:flex;
     flex-direction:row;
+    margin-bottom: 10px;
 `
 
 export const HeaderScore = styled.p`
     font-size: 11px;
 `
 
-
-export const HeaderDate = styled.p `
+export const HeaderDate = styled.p`
     font-size: 11px;
     margin-left: 5px;
     opacity:0.6;
 `
 
-export const BodyContainer = styled.div `
+export const FavoriveContainer = styled.a`
     display:flex;
-    flex-direction:column;
-`
-export const TitleContainer = styled.div `
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
-    margin-bottom: 5px;
+    margin-left:10px;
+    margin-bottom: 10px;
+    cursor:pointer;
 `
 
-export const CommentContainer = styled.div `
-    margin-left:8px;
+export const TitleContainer = styled.div`
+    display:flex;
+`
+
+export const CommentContainer = styled.a`
+    margin-left:10px;
     align-self: center;
+    cursor:pointer;
 `
 
 export const CommentCount = styled.p`
@@ -54,7 +60,7 @@ export const CommentCount = styled.p`
     opacity:0.6;
 `
 
-export const BodyUrl = styled.p `
+export const BodyUrl = styled.p`
     font-size:13px;
     opacity:0.6;
 `

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, FunctionComponent, Dispatch } from 'react'
 
 import {Container} from './styles'
 import { HackerNewsItem } from '../../models/HackerNewsItem'
 import Api from '../../infrastructure/Api'
 import NewsItem from '../NewsItem'
 
-const NewsList: React.FC = () => {
+interface NewsListProps {
+    setCurrentUrl:(url:string) => void;
+}
+
+const NewsList: FunctionComponent<NewsListProps> = (props) => {
 
     const [newsPosts, setNewsPosts] = useState<HackerNewsItem[] | []>([]);
 
@@ -23,7 +27,7 @@ const NewsList: React.FC = () => {
         <Container>
             {
                 newsPosts.map((item: HackerNewsItem) => (
-                    <NewsItem item={item}/>)
+                    <NewsItem item={item} setCurrentUrl={props.setCurrentUrl}/>)
                 )
             }
         </Container>

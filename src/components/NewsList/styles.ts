@@ -6,6 +6,7 @@ export const Container = styled.div`
    width:20%;
    overflow:hidden;
    overflow-y:scroll;
+   overflow-x:scroll;
    scrollbar-width: unset;
    height:100%;
 `
