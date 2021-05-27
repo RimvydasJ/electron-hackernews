@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { Container, MainFrame } from './styles'
-import Axios from 'axios'
 import { PulseLoader } from "react-spinners";
 import * as CSS from 'csstype';
 
@@ -8,15 +7,15 @@ interface MainWindowProps {
     url: string;
     isLoading: boolean;
     isError: boolean;
-    isFrameLoaded: () => void;
+    isFrameLoaded: (element:React.SyntheticEvent<HTMLIFrameElement, Event>) => void;
 }
 
-
-
 const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
-    const displayMessage = !props.isError ? <MainFrame src={props.url} onLoad={(e) => props.isFrameLoaded()} /> : <p>We cannot display the page</p>;
     const commentIconStyle: CSS.Properties = {
         display: 'none',
+        width:'100%',
+        height: '100%',
+        border:'none'
     };
     !props.isLoading ? commentIconStyle.display = 'block' : 'none';
     return (
@@ -26,7 +25,7 @@ const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
                     <PulseLoader /> :
                    null
                 }
-                <MainFrame src={props.url} onLoad={(e) => props.isFrameLoaded()} style={commentIconStyle}/>
+                <iframe src={props.url} onLoad={(element) => props.isFrameLoaded(element)} style={commentIconStyle}/>
             </>
 
         </Container>

@@ -21,8 +21,7 @@ const App = () => {
     setCurrentUrl(url);
   }
 
-  const isFrameLoaded = () => {
-    console.log("loaded");
+  const isFrameLoaded = (element:React.SyntheticEvent<HTMLIFrameElement, Event>) => {
     setIsLoading(false);
   }
 
