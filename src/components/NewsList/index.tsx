@@ -6,7 +6,7 @@ import Api from '../../infrastructure/Api'
 import NewsItem from '../NewsItem'
 
 interface NewsListProps {
-    setCurrentUrl:(url:string) => void;
+    setCurrentUrl:(url: string, title:string) => void;
 }
 
 const NewsList: FunctionComponent<NewsListProps> = (props) => {

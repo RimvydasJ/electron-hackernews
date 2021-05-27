@@ -7,7 +7,7 @@ import helper from '../../helper'
 
 interface NewsItemProps {
     item: HackerNewsItem;
-    setCurrentUrl:(url:string) => void;
+    setCurrentUrl:(url: string, title:string) => void;
 }
 
 
@@ -15,7 +15,7 @@ const NewsItem: FunctionComponent<NewsItemProps> = (props) => {
     const url = props.item.url ? new URL(props.item.url) : new URL("https://news.ycombinator.com/");
 
     const itemOnClick = () => {
-        props.setCurrentUrl(props.item.url);
+        props.setCurrentUrl(props.item.url, props.item.title);
     }
 
     return (

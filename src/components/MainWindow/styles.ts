@@ -6,13 +6,42 @@ export const Container = styled.div`
    width:80%;
    overflow:hidden;
    height:100%;
-   justify-content:center;
-   align-items:center;
 `
 
-export const MainFrame = styled.iframe`
+export const LoaderContainer = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
     width:100%;
-    height:100%;
-    border:none;
 `
 
+export const MainFrameContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    width:100%;
+`
+
+export const MainHeader = styled.div`
+    display:flex;
+    width:100%;
+    height:4%;
+    border:none;
+    justify-content:flex-end;
+    align-items:center;
+    background-color:lightgrey;
+    box-shadow:0px 2px 1px -1px grey;
+    z-index:999;
+`
+
+export const MainFrame = styled.div`
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:96%;
+    width:100%;
+`
+
+export const WarningMessage = styled.p`
+    position:absolute;
+    z-index:1
+`

@@ -13,15 +13,22 @@ document.body.appendChild(mainElement)
 const App = () => {
 
   const [currentUrl, setCurrentUrl] = useState("");
+  const [currentTitle, setCurrentTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isWarning, setIsWarning] = useState(false);
 
-  const setUrl = (url: string) => {
+  const setUrl = (url: string, title:string) => {
+    setCurrentTitle(title);
+    setIsWarning(false);
     setIsLoading(true);
     setCurrentUrl(url);
   }
 
-  const isFrameLoaded = (element:React.SyntheticEvent<HTMLIFrameElement, Event>) => {
+  const isFrameLoaded = () => {
+    setTimeout(() => {
+      setIsWarning(true);
+    }, 1000);
     setIsLoading(false);
   }
 
@@ -29,7 +36,14 @@ const App = () => {
     <Container>
       <GlobalStyle />
       <NewsList setCurrentUrl={setUrl} />
-      <MainWindow url={currentUrl} isLoading={isLoading} isError={isError} isFrameLoaded={isFrameLoaded}/>
+      <MainWindow 
+        url={currentUrl} 
+        isLoading={isLoading} 
+        isError={isError} 
+        isFrameLoaded={isFrameLoaded} 
+        showWarning={isWarning} 
+        title={currentTitle}
+        reload={setUrl}/>
     </Container>
   )
 }
