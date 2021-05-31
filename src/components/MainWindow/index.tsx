@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { Container, MainFrame, MainHeader, LoaderContainer, MainFrameContainer } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSync, faClipboard } from '@fortawesome/free-solid-svg-icons'
+import { faSync, faClipboard,faTrash } from '@fortawesome/free-solid-svg-icons'
 import { PulseLoader } from "react-spinners";
 import { shell } from 'electron'
 import * as CSS from 'csstype';
@@ -14,6 +14,7 @@ interface MainWindowProps {
     showWarning: boolean;
     title: string;
     reload: (url: string, title: string) => void;
+    removeFavorite: (url:string) => void;
 }
 
 const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
@@ -50,6 +51,7 @@ const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
                                     <div style={iconContainer}>
                                         <FontAwesomeIcon icon={faSync} style={iconSyncStyle} onClick={() => props.reload(props.url, props.title)} />
                                         <FontAwesomeIcon icon={faClipboard} style={iconClipStyle} onClick={() => shell.openExternal(props.url)} />
+                                        <FontAwesomeIcon icon={faTrash} style={iconClipStyle} onClick={() => props.removeFavorite(props.url)} />
                                     </div>
                                 </MainHeader>
                                 <MainFrame>
@@ -74,11 +76,13 @@ let titleContainer: CSS.Properties = {
 }
 
 let iconSyncStyle: CSS.Properties = {
-    marginRight: '30px'
+    marginRight: '30px',
+    cursor:'pointer'
 };
 
 let iconClipStyle: CSS.Properties = {
-    marginRight: '30px'
+    marginRight: '30px',
+    cursor:'pointer'
 };
 
 let iconContainer:CSS.Properties = {

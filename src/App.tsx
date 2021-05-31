@@ -7,7 +7,7 @@ import MainWindow from './components/MainWindow'
 import { menuItems } from './helper'
 import Api from './infrastructure/Api'
 import { HackerNewsItem } from './models/HackerNewsItem'
-import {getSavedItems} from './infrastructure/storage'
+import {getSavedItems,removeItem} from './infrastructure/storage'
 
 const mainElement = document.createElement('div')
 mainElement.setAttribute('id', 'root')
@@ -55,6 +55,12 @@ const App = () => {
     setIsLoading(false);
   }
 
+  const removeFavorite = (url:string) =>{
+    removeItem(url);
+    setNewsPosts(getSavedItems());
+    setCurrentUrl("");
+  }
+
   return (
     <Container>
       <GlobalStyle />
@@ -75,7 +81,8 @@ const App = () => {
           isFrameLoaded={isFrameLoaded}
           showWarning={isWarning}
           title={currentTitle}
-          reload={setUrl} />
+          reload={setUrl}
+          removeFavorite={removeFavorite} />
       </Main>
 
     </Container>

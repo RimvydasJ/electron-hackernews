@@ -20,8 +20,6 @@ const NewsItem: FunctionComponent<NewsItemProps> = (props) => {
         props.setCurrentUrl(props.item.url, props.item.title);
     }
 
-    console.log(props.item);
-
     const date = new Date(props.item.date);
 
     return (

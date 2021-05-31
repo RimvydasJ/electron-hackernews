@@ -24,7 +24,6 @@ export async function get_stories(source:string="topstories"): Promise<HackerNew
         }
     }
     catch (ex) {
-        console.log(ex);
         return newsStories;
     }
     return newsStories;
