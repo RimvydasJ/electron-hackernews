@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { render } from 'react-dom'
 import { GlobalStyle, Container, Main, Header, MainNav, MenuItem } from './styles/GlobalStyle'
 import 'regenerator-runtime/runtime'
 import NewsList from './components/NewsList'
 import MainWindow from './components/MainWindow'
-import Axios from 'axios'
+import { menuItems } from './helper'
+import Api from './infrastructure/Api'
+import { HackerNewsItem } from './models/HackerNewsItem'
+import {getSavedItems} from './infrastructure/storage'
 
 const mainElement = document.createElement('div')
 mainElement.setAttribute('id', 'root')
@@ -17,6 +20,26 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isWarning, setIsWarning] = useState(false);
+  const [newsPosts, setNewsPosts] = useState<HackerNewsItem[] | []>([]);
+
+  useEffect(() => {
+    fetchData(menuItems.TopHN);
+  }, [])
+
+  let fetchData = async (menuItem: string) => {
+    let stories = await Api.get_stories(menuItem);
+    setNewsPosts(stories);
+  }
+
+  const setMenu = (menuItem: string) =>{
+    setNewsPosts([]);
+    fetchData(menuItem);
+  }
+
+  const loadFavorites = () => {
+    const items = getSavedItems();
+    setNewsPosts(items);
+  }
 
   const setUrl = (url: string, title: string) => {
     setCurrentTitle(title);
@@ -38,12 +61,13 @@ const App = () => {
       <Header><p>header</p></Header>
       <Main>
         <MainNav>
-            <MenuItem>Top Stories</MenuItem>
-            <MenuItem>Ask HN</MenuItem>
-            <MenuItem>Show HN</MenuItem>
-            <MenuItem>Favorites</MenuItem>
+          <MenuItem onClick={() => setMenu(menuItems.TopHN)}>Top Stories</MenuItem>
+          <MenuItem onClick={() => setMenu(menuItems.AskHN)}>Ask HN</MenuItem>
+          <MenuItem onClick={() => setMenu(menuItems.ShowHN)}>Show HN</MenuItem>
+          <MenuItem onClick={() => setMenu(menuItems.JobHN)}>Job HN</MenuItem>
+          <MenuItem onClick={() => loadFavorites()}>Favorites</MenuItem>
         </MainNav>
-        <NewsList setCurrentUrl={setUrl} />
+        <NewsList setCurrentUrl={setUrl} newsPosts={newsPosts} />
         <MainWindow
           url={currentUrl}
           isLoading={isLoading}

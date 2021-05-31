@@ -1,9 +1,11 @@
 import React, { FunctionComponent } from 'react'
 import { HackerNewsItem } from '../../models/HackerNewsItem'
-import { Container, LeftContainer, RightContainer, HeaderDate, HeaderScoreDate, HeaderScore, BodyUrl, CommentContainer, CommentCount, TitleContainer,FavoriveContainer } from './styles'
+import { Container, LeftContainer, RightContainer, HeaderDate, HeaderScoreDate, HeaderScore, BodyUrl, CommentContainer, CommentCount, TitleContainer,FavoriveContainer,FavoriteIcon } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faComments } from '@fortawesome/free-regular-svg-icons'
 import helper from '../../helper'
+import * as CSS from 'csstype';
+import {saveItem} from '../../infrastructure/storage'
 
 interface NewsItemProps {
     item: HackerNewsItem;
@@ -18,12 +20,16 @@ const NewsItem: FunctionComponent<NewsItemProps> = (props) => {
         props.setCurrentUrl(props.item.url, props.item.title);
     }
 
+    console.log(props.item);
+
+    const date = new Date(props.item.date);
+
     return (
         <Container>
             <LeftContainer onClick={itemOnClick}>
                 <HeaderScoreDate>
                     <HeaderScore>+{props.item.score}</HeaderScore>
-                    <HeaderDate>{helper.formatDate(props.item.date)}</HeaderDate>
+                    <HeaderDate>{helper.formatDate(date)}</HeaderDate>
                 </HeaderScoreDate>
                 <TitleContainer>
                     <h5>{props.item.title}</h5>
@@ -32,7 +38,7 @@ const NewsItem: FunctionComponent<NewsItemProps> = (props) => {
             </LeftContainer>
             <RightContainer>
                 <FavoriveContainer>
-                    <FontAwesomeIcon icon={faStar} size="xs"/>
+                    <FavoriteIcon onClick={() => saveItem(props.item)}><FontAwesomeIcon icon={faStar} size="xs"/></FavoriteIcon>
                 </FavoriveContainer>
                 <CommentContainer>
                     <FontAwesomeIcon icon={faComments} size="xs" />
@@ -42,5 +48,7 @@ const NewsItem: FunctionComponent<NewsItemProps> = (props) => {
         </Container>
     );
 }
+
+
 
 export default NewsItem;

@@ -2,10 +2,10 @@ import Axios from 'axios'
 import { HackerNewsItem } from '../models/HackerNewsItem'
 const url: string = "https://hacker-news.firebaseio.com/v0/"
 
-export async function get_top_storie(): Promise<HackerNewsItem[]> {
+export async function get_stories(source:string="topstories"): Promise<HackerNewsItem[]> {
     var newsStories: HackerNewsItem[] = [];
     try {
-        var response = await Axios.get(url + "topstories.json");
+        var response = await Axios.get(url + source + ".json");
         if (response.data) {
             for(var i=0; i < 10; i++){
                 var newsItem = await Axios.get(url + `/item/${response.data[i]}.json`);
@@ -32,5 +32,5 @@ export async function get_top_storie(): Promise<HackerNewsItem[]> {
 
 
 export default {
-    get_top_storie
+    get_stories
 }

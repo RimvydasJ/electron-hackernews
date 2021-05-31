@@ -18,7 +18,15 @@ export function formatDate(date:Date){
 }
 
 
+export const menuItems = {
+    TopHN: 'topstories',
+    AskHN: 'askstories',
+    ShowHN: 'showstories',
+    JobHN: 'jobstories'
+};
+
 
 export default {
-    formatDate
+    formatDate,
+    menuItems
 }

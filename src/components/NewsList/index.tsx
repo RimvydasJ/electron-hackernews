@@ -7,26 +7,14 @@ import NewsItem from '../NewsItem'
 
 interface NewsListProps {
     setCurrentUrl:(url: string, title:string) => void;
+    newsPosts:HackerNewsItem[] | [];
 }
 
 const NewsList: FunctionComponent<NewsListProps> = (props) => {
-
-    const [newsPosts, setNewsPosts] = useState<HackerNewsItem[] | []>([]);
-
-    useEffect(() => {
-        let fetchData = async () => {
-            let stories = await Api.get_top_storie();
-            setNewsPosts(stories);
-        }
-
-        fetchData();
-    }, []);
-
-
     return (
         <Container>
             {
-                newsPosts.map((item: HackerNewsItem) => (
+                props.newsPosts?.map((item: HackerNewsItem) => (
                     <NewsItem item={item} setCurrentUrl={props.setCurrentUrl} key={item.key}/>)
                 )
             }

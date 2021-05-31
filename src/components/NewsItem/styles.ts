@@ -64,3 +64,6 @@ export const BodyUrl = styled.p`
     font-size:13px;
     opacity:0.6;
 `
+export const FavoriteIcon = styled.a`
+&:hover { color: blue }
+`
