@@ -16,13 +16,15 @@ export async function get_top_storie(): Promise<HackerNewsItem[]> {
                             url:newsItem.data.url, 
                             date:new Date(newsItem.data.time*1000), 
                             score:newsItem.data.score,
-                            commentCount: newsItem.data.kids.length
+                            commentCount: newsItem.data.kids?.length,
+                            key:i
                         });
                 }
             }
         }
     }
     catch (ex) {
+        console.log(ex);
         return newsStories;
     }
     return newsStories;

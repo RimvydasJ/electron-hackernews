@@ -4,4 +4,5 @@ export interface HackerNewsItem {
     score: number;
     date:Date;
     commentCount: number;
+    key: number;
 }

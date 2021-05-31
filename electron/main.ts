@@ -9,7 +9,11 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1600,
     height: 1000,
+    minHeight:700,
+    minWidth:1400,
+    maxWidth:1920,
     backgroundColor: '#191622',
+    title:"Hacker news reader",
     webPreferences: {
       nodeIntegration: true
     }

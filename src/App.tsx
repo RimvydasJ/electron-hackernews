@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { render } from 'react-dom'
-import { GlobalStyle, Container } from './styles/GlobalStyle'
+import { GlobalStyle, Container, Main, Header, MainNav, MenuItem } from './styles/GlobalStyle'
 import 'regenerator-runtime/runtime'
 import NewsList from './components/NewsList'
 import MainWindow from './components/MainWindow'
@@ -18,7 +18,7 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [isWarning, setIsWarning] = useState(false);
 
-  const setUrl = (url: string, title:string) => {
+  const setUrl = (url: string, title: string) => {
     setCurrentTitle(title);
     setIsWarning(false);
     setIsLoading(true);
@@ -35,15 +35,25 @@ const App = () => {
   return (
     <Container>
       <GlobalStyle />
-      <NewsList setCurrentUrl={setUrl} />
-      <MainWindow 
-        url={currentUrl} 
-        isLoading={isLoading} 
-        isError={isError} 
-        isFrameLoaded={isFrameLoaded} 
-        showWarning={isWarning} 
-        title={currentTitle}
-        reload={setUrl}/>
+      <Header><p>header</p></Header>
+      <Main>
+        <MainNav>
+            <MenuItem>Top Stories</MenuItem>
+            <MenuItem>Ask HN</MenuItem>
+            <MenuItem>Show HN</MenuItem>
+            <MenuItem>Favorites</MenuItem>
+        </MainNav>
+        <NewsList setCurrentUrl={setUrl} />
+        <MainWindow
+          url={currentUrl}
+          isLoading={isLoading}
+          isError={isError}
+          isFrameLoaded={isFrameLoaded}
+          showWarning={isWarning}
+          title={currentTitle}
+          reload={setUrl} />
+      </Main>
+
     </Container>
   )
 }

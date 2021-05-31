@@ -12,8 +12,8 @@ interface MainWindowProps {
     isError: boolean;
     isFrameLoaded: () => void;
     showWarning: boolean;
-    title:string;
-    reload:(url: string, title:string) => void;
+    title: string;
+    reload: (url: string, title: string) => void;
 }
 
 const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
@@ -34,7 +34,7 @@ const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
     !props.isLoading ? commentIconStyle.display = 'block' : commentIconStyle.display = 'none';
     !props.isLoading ? warningStyle.display = 'block' : warningStyle.display = 'none';
 
-    const warningMessage = props.showWarning ? <p style={warningStyle}>We cannot open the url. Please click <FontAwesomeIcon icon={faClipboard}/></p> : null;
+    const warningMessage = props.showWarning ? <p style={warningStyle}>We cannot open the url. Please click <FontAwesomeIcon icon={faClipboard} /></p> : null;
     const urlFrame = <iframe src={props.url} onLoad={() => props.isFrameLoaded()} style={commentIconStyle} />;
     return (
         <Container>
@@ -44,13 +44,17 @@ const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
                         props.url ? (
                             <MainFrameContainer>
                                 <MainHeader>
-                                    <p>{props.title}</p>
-                                    <FontAwesomeIcon icon={faSync} style={iconStyle} onClick={() => props.reload(props.url,props.title)}/>
-                                    <FontAwesomeIcon icon={faClipboard} style={iconStyle} onClick={() => shell.openExternal(props.url)}/>
+                                    <div style={titleContainer}>
+                                        <p style={titleStyle}>{props.title}</p>
+                                    </div>
+                                    <div style={iconContainer}>
+                                        <FontAwesomeIcon icon={faSync} style={iconSyncStyle} onClick={() => props.reload(props.url, props.title)} />
+                                        <FontAwesomeIcon icon={faClipboard} style={iconClipStyle} onClick={() => shell.openExternal(props.url)} />
+                                    </div>
                                 </MainHeader>
                                 <MainFrame>
                                     {warningMessage}
-                                    {urlFrame}              
+                                    {urlFrame}
                                 </MainFrame>
                             </MainFrameContainer>
                         ) : <></>
@@ -61,10 +65,27 @@ const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
     )
 }
 
-let iconStyle: CSS.Properties = {
-    marginRight:'2%'
+let titleStyle: CSS.Properties = {
+    marginLeft:'30px'
+}
+
+let titleContainer: CSS.Properties = {
+    width:'50%',
+}
+
+let iconSyncStyle: CSS.Properties = {
+    marginRight: '30px'
 };
 
+let iconClipStyle: CSS.Properties = {
+    marginRight: '30px'
+};
+
+let iconContainer:CSS.Properties = {
+    display:'flex',
+    justifyContent:'flex-end',
+    width:'10%'
+}
 
 
 export default MainWindow;

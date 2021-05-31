@@ -27,7 +27,7 @@ const NewsList: FunctionComponent<NewsListProps> = (props) => {
         <Container>
             {
                 newsPosts.map((item: HackerNewsItem) => (
-                    <NewsItem item={item} setCurrentUrl={props.setCurrentUrl}/>)
+                    <NewsItem item={item} setCurrentUrl={props.setCurrentUrl} key={item.key}/>)
                 )
             }
         </Container>

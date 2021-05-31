@@ -16,9 +16,36 @@ export const GlobalStyle = createGlobalStyle`
 `
 
 export const Container = styled.div`
-  display:fex;
-  flex-direction:row;
+  display:flex;
+  flex-direction:column;
   height:100vh;
   overflow-y:hidden;
 `
 
+export const Main = styled.main`
+  display:flex;
+  flex-direction:row;
+  height:100%;
+`
+export const Header = styled.header`
+  height:30px;
+`
+
+export const MainNav = styled.nav`
+  width:12%;
+  border: 1px solid;
+  display:flex;
+  flex-direction:column;
+  background-color:#FE6700;
+`
+
+export const MenuItem = styled.a`
+  &:hover { background: #ff9045 }
+  height:30px;
+  padding:5px;
+  text-align:center;
+  margin-bottom:1px;
+  cursor:pointer;
+  width:100%;
+  color:white;
+`

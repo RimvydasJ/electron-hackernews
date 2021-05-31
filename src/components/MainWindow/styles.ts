@@ -24,9 +24,9 @@ export const MainFrameContainer = styled.div`
 export const MainHeader = styled.div`
     display:flex;
     width:100%;
-    height:4%;
+    height:30px;
     border:none;
-    justify-content:flex-end;
+    justify-content:space-between;
     align-items:center;
     background-color:lightgrey;
     box-shadow:0px 2px 1px -1px grey;
