@@ -30,19 +30,25 @@ export async function get_stories(source:string="topstories"): Promise<HackerNew
     return newsStories;
 }
 
+
 export async function get_comments(commentIds:number[]): Promise<HackerNewsComment[]> {
-    var comments: HackerNewsComment[] = [];
+    let comments: HackerNewsComment[] = [];
     try{
-        for(var id of commentIds){
-            var comment = await Axios.get(url + `/item/${id}.json`);
+        for(let id of commentIds){
+            let comment = await Axios.get(url + `/item/${id}.json`);
                 if (comment.data) {
-                    comments.push(
-                        {
+                    let hackerComment: HackerNewsComment = {
                             author: comment.data.by, 
                             key:comment.data.id,
                             text:comment.data.text,
-                            date:new Date(comment.data.time*1000)
-                        });
+                            date:new Date(comment.data.time*1000),
+                            childComments:[]
+                    };
+                    if(comment.data.kids){
+                        let childComments = await get_comments(comment.data.kids)
+                        hackerComment.childComments = childComments;
+                    }
+                    comments.push(hackerComment);
                 } 
         }
     }

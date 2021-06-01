@@ -5,8 +5,6 @@ import { faSync, faClipboard, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { PulseLoader } from "react-spinners";
 import { shell } from 'electron'
 import * as CSS from 'csstype';
-import { HackerNewsComment } from '../../models/HackerNewsItem'
-import Comment from '../Comment'
 
 interface MainWindowProps {
     url: string;
@@ -18,7 +16,7 @@ interface MainWindowProps {
     reload: (url: string, title: string) => void;
     removeFavorite: (url: string) => void;
     isComments: boolean;
-    comments: HackerNewsComment[] | [];
+    comments: JSX.Element[] | [];
 }
 
 const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
@@ -62,7 +60,7 @@ const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
                                     props.isComments ?
                                         (<CommentFrame>
                                             {
-                                                props.comments.map((comment:HackerNewsComment)=>(<Comment comment={comment}/>))
+                                                props.comments
                                             }
                                         </CommentFrame>) :
                                         (

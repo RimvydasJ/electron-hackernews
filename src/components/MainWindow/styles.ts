@@ -43,6 +43,7 @@ export const MainFrame = styled.div`
 export const CommentFrame = styled.div`
     height:100%;
     margin-top:5px;
+    overflow-y:scroll;
 `
 
 export const WarningMessage = styled.p`

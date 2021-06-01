@@ -13,4 +13,5 @@ export interface HackerNewsComment{
     text:string;
     date:Date;
     key:number;
+    childComments:HackerNewsComment[];
 }

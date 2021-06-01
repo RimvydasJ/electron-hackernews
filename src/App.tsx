@@ -6,8 +6,9 @@ import NewsList from './components/NewsList'
 import MainWindow from './components/MainWindow'
 import { menuItems } from './helper'
 import Api from './infrastructure/Api'
-import { HackerNewsItem,HackerNewsComment } from './models/HackerNewsItem'
-import {getSavedItems,removeItem} from './infrastructure/storage'
+import { HackerNewsItem, HackerNewsComment } from './models/HackerNewsItem'
+import { getSavedItems, removeItem } from './infrastructure/storage'
+import Comment from './components/Comment'
 
 const mainElement = document.createElement('div')
 mainElement.setAttribute('id', 'root')
@@ -21,7 +22,7 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [isWarning, setIsWarning] = useState(false);
   const [newsPosts, setNewsPosts] = useState<HackerNewsItem[] | []>([]);
-  const [comments, setComments] = useState<HackerNewsComment[] | []>([]);
+  const [comments, setComments] = useState<JSX.Element[] | []>([]);
   const [isComments, setIsComments] = useState(false);
 
   useEffect(() => {
@@ -33,13 +34,25 @@ const App = () => {
     setNewsPosts(stories);
   }
 
-  let fetchComments = async (commentIds: number[]) =>{
+  let fetchComments = async (commentIds: number[]) => {
     let comments = await Api.get_comments(commentIds)
-    console.log(comments);
-    setComments(comments);
+    setComments(buildCommentSection(comments, 0));
+   
   }
 
-  const setMenu = (menuItem: string) =>{
+  function buildCommentSection(comments: HackerNewsComment[], margin: number): JSX.Element[] {
+    let elements: JSX.Element[] = []
+    for (let comment of comments) {
+      elements.push(<Comment comment={comment} margin={margin} key={comment.key} />)
+      if (comment.childComments) {
+        var childComments = buildCommentSection(comment.childComments, margin + 10);
+        elements.push(...childComments);
+      }
+    }
+    return elements;
+  }
+
+  const setMenu = (menuItem: string) => {
     setNewsPosts([]);
     fetchData(menuItem);
   }
@@ -55,9 +68,9 @@ const App = () => {
     setIsLoading(true);
     setCurrentUrl(url);
     setIsComments(isComments);
-    if(isComments && newsPosts){
+    if (isComments && newsPosts) {
       const post = newsPosts.find(post => post.url === url);
-      if(post?.commentIds){
+      if (post?.commentIds) {
         fetchComments(post.commentIds);
       }
     }
@@ -71,7 +84,7 @@ const App = () => {
   }
 
 
-  const removeFavorite = (url:string) =>{
+  const removeFavorite = (url: string) => {
     removeItem(url);
     setNewsPosts(getSavedItems());
     setCurrentUrl("");
@@ -89,7 +102,7 @@ const App = () => {
           <MenuItem onClick={() => setMenu(menuItems.JobHN)}>Job HN</MenuItem>
           <MenuItem onClick={() => loadFavorites()}>Favorites</MenuItem>
         </MainNav>
-        <NewsList setCurrentUrl={setUrl} newsPosts={newsPosts}/>
+        <NewsList setCurrentUrl={setUrl} newsPosts={newsPosts} />
         <MainWindow
           url={currentUrl}
           isLoading={isLoading}
@@ -98,10 +111,10 @@ const App = () => {
           showWarning={isWarning}
           title={currentTitle}
           reload={setUrl}
-          removeFavorite={removeFavorite} 
+          removeFavorite={removeFavorite}
           isComments={isComments}
           comments={comments}
-          />
+        />
       </Main>
 
     </Container>
