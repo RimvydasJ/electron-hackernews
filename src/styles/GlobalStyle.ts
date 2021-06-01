@@ -12,6 +12,8 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     background-color: white;
+    line-height: 1.5;
+    font-weight:400;
   }
 `
 

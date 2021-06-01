@@ -1,10 +1,12 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
-import { Container, MainFrame, MainHeader, LoaderContainer, MainFrameContainer } from './styles'
+import { Container, MainFrame, MainHeader, LoaderContainer, MainFrameContainer,CommentFrame } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSync, faClipboard,faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faSync, faClipboard, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { PulseLoader } from "react-spinners";
 import { shell } from 'electron'
 import * as CSS from 'csstype';
+import { HackerNewsComment } from '../../models/HackerNewsItem'
+import Comment from '../Comment'
 
 interface MainWindowProps {
     url: string;
@@ -14,7 +16,9 @@ interface MainWindowProps {
     showWarning: boolean;
     title: string;
     reload: (url: string, title: string) => void;
-    removeFavorite: (url:string) => void;
+    removeFavorite: (url: string) => void;
+    isComments: boolean;
+    comments: HackerNewsComment[] | [];
 }
 
 const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
@@ -54,10 +58,20 @@ const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
                                         <FontAwesomeIcon icon={faTrash} style={iconClipStyle} onClick={() => props.removeFavorite(props.url)} />
                                     </div>
                                 </MainHeader>
-                                <MainFrame>
-                                    {warningMessage}
-                                    {urlFrame}
-                                </MainFrame>
+                                {
+                                    props.isComments ?
+                                        (<CommentFrame>
+                                            {
+                                                props.comments.map((comment:HackerNewsComment)=>(<Comment comment={comment}/>))
+                                            }
+                                        </CommentFrame>) :
+                                        (
+                                            <MainFrame>
+                                                {warningMessage}
+                                                {urlFrame}
+                                            </MainFrame>
+                                        )
+                                }
                             </MainFrameContainer>
                         ) : <></>
 
@@ -68,27 +82,27 @@ const MainWindow: FunctionComponent<MainWindowProps> = (props) => {
 }
 
 let titleStyle: CSS.Properties = {
-    marginLeft:'30px'
+    marginLeft: '30px'
 }
 
 let titleContainer: CSS.Properties = {
-    width:'50%',
+    width: '50%',
 }
 
 let iconSyncStyle: CSS.Properties = {
     marginRight: '30px',
-    cursor:'pointer'
+    cursor: 'pointer'
 };
 
 let iconClipStyle: CSS.Properties = {
     marginRight: '30px',
-    cursor:'pointer'
+    cursor: 'pointer'
 };
 
-let iconContainer:CSS.Properties = {
-    display:'flex',
-    justifyContent:'flex-end',
-    width:'10%'
+let iconContainer: CSS.Properties = {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '10%'
 }
 
 

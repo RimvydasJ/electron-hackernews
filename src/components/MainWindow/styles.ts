@@ -40,6 +40,10 @@ export const MainFrame = styled.div`
     height:96%;
     width:100%;
 `
+export const CommentFrame = styled.div`
+    height:100%;
+    margin-top:5px;
+`
 
 export const WarningMessage = styled.p`
     position:absolute;

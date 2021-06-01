@@ -6,7 +6,7 @@ import NewsList from './components/NewsList'
 import MainWindow from './components/MainWindow'
 import { menuItems } from './helper'
 import Api from './infrastructure/Api'
-import { HackerNewsItem } from './models/HackerNewsItem'
+import { HackerNewsItem,HackerNewsComment } from './models/HackerNewsItem'
 import {getSavedItems,removeItem} from './infrastructure/storage'
 
 const mainElement = document.createElement('div')
@@ -21,6 +21,8 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [isWarning, setIsWarning] = useState(false);
   const [newsPosts, setNewsPosts] = useState<HackerNewsItem[] | []>([]);
+  const [comments, setComments] = useState<HackerNewsComment[] | []>([]);
+  const [isComments, setIsComments] = useState(false);
 
   useEffect(() => {
     fetchData(menuItems.TopHN);
@@ -29,6 +31,12 @@ const App = () => {
   let fetchData = async (menuItem: string) => {
     let stories = await Api.get_stories(menuItem);
     setNewsPosts(stories);
+  }
+
+  let fetchComments = async (commentIds: number[]) =>{
+    let comments = await Api.get_comments(commentIds)
+    console.log(comments);
+    setComments(comments);
   }
 
   const setMenu = (menuItem: string) =>{
@@ -41,11 +49,18 @@ const App = () => {
     setNewsPosts(items);
   }
 
-  const setUrl = (url: string, title: string) => {
+  const setUrl = (url: string, title: string, isComments: boolean = false) => {
     setCurrentTitle(title);
     setIsWarning(false);
     setIsLoading(true);
     setCurrentUrl(url);
+    setIsComments(isComments);
+    if(isComments && newsPosts){
+      const post = newsPosts.find(post => post.url === url);
+      if(post?.commentIds){
+        fetchComments(post.commentIds);
+      }
+    }
   }
 
   const isFrameLoaded = () => {
@@ -54,6 +69,7 @@ const App = () => {
     }, 1000);
     setIsLoading(false);
   }
+
 
   const removeFavorite = (url:string) =>{
     removeItem(url);
@@ -73,7 +89,7 @@ const App = () => {
           <MenuItem onClick={() => setMenu(menuItems.JobHN)}>Job HN</MenuItem>
           <MenuItem onClick={() => loadFavorites()}>Favorites</MenuItem>
         </MainNav>
-        <NewsList setCurrentUrl={setUrl} newsPosts={newsPosts} />
+        <NewsList setCurrentUrl={setUrl} newsPosts={newsPosts}/>
         <MainWindow
           url={currentUrl}
           isLoading={isLoading}
@@ -82,7 +98,10 @@ const App = () => {
           showWarning={isWarning}
           title={currentTitle}
           reload={setUrl}
-          removeFavorite={removeFavorite} />
+          removeFavorite={removeFavorite} 
+          isComments={isComments}
+          comments={comments}
+          />
       </Main>
 
     </Container>

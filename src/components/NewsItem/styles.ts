@@ -64,6 +64,9 @@ export const BodyUrl = styled.p`
     font-size:13px;
     opacity:0.6;
 `
-export const FavoriteIcon = styled.a`
-&:hover { color: blue }
+export const FavoriteIcon = styled.div`
+    &:hover { color: blue ;}
+`
+export const CommentIcon = styled.div`
+    &:hover {color: red;}
 `

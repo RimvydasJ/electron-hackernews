@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import { HackerNewsItem } from '../models/HackerNewsItem'
+import { HackerNewsItem, HackerNewsComment } from '../models/HackerNewsItem'
 const url: string = "https://hacker-news.firebaseio.com/v0/"
 
 export async function get_stories(source:string="topstories"): Promise<HackerNewsItem[]> {
@@ -17,7 +17,8 @@ export async function get_stories(source:string="topstories"): Promise<HackerNew
                             date:new Date(newsItem.data.time*1000), 
                             score:newsItem.data.score,
                             commentCount: newsItem.data.kids?.length,
-                            key:i
+                            key:i,
+                            commentIds: newsItem.data.kids
                         });
                 }
             }
@@ -29,7 +30,30 @@ export async function get_stories(source:string="topstories"): Promise<HackerNew
     return newsStories;
 }
 
+export async function get_comments(commentIds:number[]): Promise<HackerNewsComment[]> {
+    var comments: HackerNewsComment[] = [];
+    try{
+        for(var id of commentIds){
+            var comment = await Axios.get(url + `/item/${id}.json`);
+                if (comment.data) {
+                    comments.push(
+                        {
+                            author: comment.data.by, 
+                            key:comment.data.id,
+                            text:comment.data.text,
+                            date:new Date(comment.data.time*1000)
+                        });
+                } 
+        }
+    }
+    catch(ex){
+        console.log(ex);
+    }
+    return comments;
+}
+
 
 export default {
-    get_stories
+    get_stories,
+    get_comments
 }
