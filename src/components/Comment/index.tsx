@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react'
-import {HackerNewsComment} from '../../models/HackerNewsItem'
+import {HackerNewsComment} from '../../types'
 import {Container} from './styles'
 import * as CSS from 'csstype';
 

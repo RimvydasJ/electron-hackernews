@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import { HackerNewsItem, HackerNewsComment } from '../models/HackerNewsItem'
+import { HackerNewsItem, HackerNewsComment } from '../types'
 const url: string = "https://hacker-news.firebaseio.com/v0/"
 
 export async function get_stories(source:string="topstories"): Promise<HackerNewsItem[]> {

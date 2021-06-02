@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FunctionComponent, Dispatch } from 'react'
 
 import {Container} from './styles'
-import { HackerNewsItem } from '../../models/HackerNewsItem'
+import { HackerNewsItem } from '../../types'
 import Api from '../../infrastructure/Api'
 import NewsItem from '../NewsItem'
 

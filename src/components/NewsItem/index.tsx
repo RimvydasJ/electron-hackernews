@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react'
-import { HackerNewsItem } from '../../models/HackerNewsItem'
+import { HackerNewsItem } from '../../types'
 import { Container, 
     LeftContainer, 
     RightContainer, 
@@ -15,7 +15,7 @@ import { Container,
     CommentIcon } from './styles'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faComments } from '@fortawesome/free-regular-svg-icons'
-import helper from '../../helper'
+import helper from '../../utils/helper'
 import * as CSS from 'csstype';
 import {saveItem} from '../../infrastructure/storage'
 

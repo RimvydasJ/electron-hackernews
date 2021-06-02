@@ -1,4 +1,4 @@
-import {HackerNewsItem} from '../models/HackerNewsItem'
+import {HackerNewsItem} from '../types'
 
 const key = "hackernewsreader"
 

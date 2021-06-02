@@ -4,9 +4,9 @@ import { GlobalStyle, Container, Main, Header, MainNav, MenuItem } from './style
 import 'regenerator-runtime/runtime'
 import NewsList from './components/NewsList'
 import MainWindow from './components/MainWindow'
-import { menuItems } from './helper'
+import { menuItems } from './utils/helper'
 import Api from './infrastructure/Api'
-import { HackerNewsItem, HackerNewsComment } from './models/HackerNewsItem'
+import { HackerNewsItem, HackerNewsComment } from './types'
 import { getSavedItems, removeItem } from './infrastructure/storage'
 import Comment from './components/Comment'
 
