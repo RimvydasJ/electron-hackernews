@@ -6,6 +6,8 @@ export const Container = styled.div`
    width:80%;
    overflow:hidden;
    height:100%;
+   background-color:#DEDDE4;
+   border-top: 1px solid white;
 `
 
 export const LoaderContainer = styled.div`
@@ -29,8 +31,9 @@ export const MainHeader = styled.div`
     justify-content:space-between;
     align-items:center;
     background-color:lightgrey;
-    box-shadow:0px 2px 1px -1px grey;
+    border-bottom: 1px solid white;
     z-index:999;
+    background-color:#DEDDE4;
 `
 
 export const MainFrame = styled.div`

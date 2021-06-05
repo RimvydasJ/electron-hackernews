@@ -3,11 +3,13 @@ import styled from 'styled-components'
 export const Container = styled.div`
     width:100%;
     margin-bottom: 1%;
-    background-color: #dedede;
+    background-color: #DEDDE4;
     border-radius: 5px;
     display:flex;
     flex-direction:row;
     padding: 5px;
+    color:black;
+    border-top: 1px solid white;
 `
 
 export const LeftContainer = styled.a`

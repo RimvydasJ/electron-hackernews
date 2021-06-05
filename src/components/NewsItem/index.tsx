@@ -56,7 +56,7 @@ const NewsItem: FunctionComponent<NewsItemProps> = (props) => {
                 </FavoriveContainer>
                 <CommentContainer onClick={commentOnClick}>
                     <CommentIcon><FontAwesomeIcon icon={faComments} size="xs" /></CommentIcon>
-                    <CommentCount>{props.item.commentCount}</CommentCount>
+                
                 </CommentContainer>
             </RightContainer>
         </Container>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { render } from 'react-dom'
-import { GlobalStyle, Container, Main, Header, MainNav, MenuItem } from './styles/GlobalStyle'
+import { GlobalStyle, Container, Main, Header, MainNav, MenuItem, MainButton, SecondaryButton} from './styles/GlobalStyle'
 import 'regenerator-runtime/runtime'
 import NewsList from './components/NewsList'
 import MainWindow from './components/MainWindow'
@@ -37,7 +37,7 @@ const App = () => {
   let fetchComments = async (commentIds: number[]) => {
     let comments = await Api.get_comments(commentIds)
     setComments(buildCommentSection(comments, 0));
-   
+
   }
 
   function buildCommentSection(comments: HackerNewsComment[], margin: number): JSX.Element[] {
@@ -93,7 +93,11 @@ const App = () => {
   return (
     <Container>
       <GlobalStyle />
-      <Header><p>header</p></Header>
+      <Header>
+        <MainButton>Go Pro</MainButton>
+        <SecondaryButton>Sign In</SecondaryButton>
+        <SecondaryButton>Sign Up</SecondaryButton>
+      </Header>
       <Main>
         <MainNav>
           <MenuItem onClick={() => setMenu(menuItems.TopHN)}>Top Stories</MenuItem>
