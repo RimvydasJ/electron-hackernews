@@ -7,7 +7,7 @@ export async function get_stories(source:string="topstories"): Promise<HackerNew
     try {
         var response = await Axios.get(url + source + ".json");
         if (response.data) {
-            for(var i=0; i < 10; i++){
+            for(var i=0; i < 20; i++){
                 var newsItem = await Axios.get(url + `/item/${response.data[i]}.json`);
                 if (newsItem.data) {
                     newsStories.push(

@@ -5,8 +5,12 @@ export const Container = styled.div`
    flex-direction:column;
    width:20%;
    overflow:hidden;
-   overflow-y:scroll;
-   overflow-x:scroll;
+   overflow-y:auto;
    scrollbar-width: unset;
    height:100%;
+   border-right: 1px solid white;
+   align-items:center;
+   &::-webkit-scrollbar{
+      display:none;
+   }
 `
